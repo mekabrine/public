@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 
-// Reconstructed from original binary selectors, not verbatim decompiled source.
+// Reconstructed selectors: original command suppression remains unknown.
 @interface SiriInterceptBridge : NSObject
 + (BOOL)isEnabled;
 + (BOOL)consume:(id)recognized controller:(UIViewController *)controller;
@@ -14,7 +14,7 @@
     @try {
         [SiriInterceptBridge consume:recognition controller:(UIViewController *)self];
     } @catch (NSException *exception) {
-        NSLog(@"[SiriPlus] speech interception failed: %@", exception);
+        NSLog(@"[SiriPlus] interception error: %@", exception);
     }
 }
 %end
@@ -30,12 +30,12 @@
 
 %ctor {
     @autoreleasepool {
-        Class vc = objc_getClass("AFUISiriViewController");
-        if (vc && class_getInstanceMethod(vc, @selector(_tellSpeechDelegateSpeechRecognized:))) {
+        Class speech = objc_getClass("AFUISiriViewController");
+        if (speech && class_getInstanceMethod(speech, @selector(_tellSpeechDelegateSpeechRecognized:))) {
             %init(SiriSpeech);
         }
-        Class connection = objc_getClass("AFConnection");
-        if (connection && class_getInstanceMethod(connection, @selector(_handleCommand:reply:))) {
+        Class commands = objc_getClass("AFConnection");
+        if (commands && class_getInstanceMethod(commands, @selector(_handleCommand:reply:))) {
             %init(SiriCommand);
         }
     }

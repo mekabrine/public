@@ -1,0 +1,15 @@
+# SiriPlus 1.4 — reconstruction
+
+This is a **partial, untested** reconstruction of the original rootless jailbreak tweak; not an identical recovery.
+
+## Theos package
+- Root-level `control` is included for Theos / ZIP build services.
+- `THEOS_PACKAGE_SCHEME = rootless` packages into the jailbreak prefix.
+- `ARCHS = arm64 arm64e` requests both slices, targeting iOS 15+.
+- Package architecture `iphoneos-arm64` is the correct Debian architecture label for rootless; it does **not** mean arm64e support is disabled.
+- arm64e builds require a toolchain with compatible modern arm64e ABI support (normally Xcode/macOS).
+
+## Limitations
+No complete build has been performed here. The reconstructed API clients, Siri interception, and native response integration may require further fixes and device testing. The Siri hook currently passes through Apple's original handler and may double-respond. Preferences SwiftUI source is present but not wired into a preferences bundle.
+
+For details see [RECOVERY_AUDIT.md](RECOVERY_AUDIT.md).

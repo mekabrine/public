@@ -1,0 +1,9 @@
+Package: com.uckermark.siriplus
+Name: SiriPlus
+Version: 1.4
+Architecture: iphoneos-arm64
+Description: SiriPlus rootless Siri AI tweak (reconstructed source)
+Maintainer: uckermark
+Author: uckermark
+Section: Tweaks
+Depends: firmware (>= 15.0), mobilesubstrate
